@@ -83,7 +83,7 @@ Want it without the solution sitting right there? Use pattern mode and exclude i
 ```bash
 git clone --filter=blob:none --no-checkout https://github.com/ManvGit17/ctf-challenges.git
 cd ctf-challenges
-git sparse-checkout set --no-cone '/keyhole/' '!/keyhole/solution/'
+git sparse-checkout set --no-cone 'keyhole/' '!keyhole/solution/'
 git checkout
 ```
 
