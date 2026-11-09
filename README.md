@@ -18,6 +18,7 @@ watch the repo to see them land.
 |---|---|---|---|---|
 | [Keyhole](keyhole/) | Reverse Engineering | Easy+ | 200 | HTTP service + Linux binary |
 | [Pilgrim's Trace](pilgrim-trace/) | Forensics (network) | Hard | 300 | PCAP file + TCP relay |
+| [Stark Nightshift](stark-nightshift/) | Web / Networking | Insane | n/a | Web console (browser only) |
 
 ## Quick start
 

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stark Industries &mdash; Internal Access</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<div id="intro" class="intro">
+  <div class="scanlines"></div>
+  <div class="introBox">
+    <div class="introLogo"><span class="introLogoDot"></span>STARK INDUSTRIES</div>
+    <div class="terminal">
+      <div class="terminalBar">
+        <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+        <span class="terminalTitle">infiltration_kit.sh</span>
+      </div>
+      <div class="terminalBody">
+        <div id="introLines" class="introLines"></div>
+      </div>
+    </div>
+    <button id="beginBtn" class="beginBtn" style="display:none">Proceed</button>
+  </div>
+</div>
+
+<div id="app" class="app" hidden>
+<header class="topbar">
+  <div class="brand"><span class="dot"></span>STARK INDUSTRIES <span class="sep">/</span> R&amp;D Vault</div>
+  <div class="status" id="connStatus">connecting&hellip;</div>
+</header>
+
+<main class="stage">
+
+  <section class="vaultCard">
+    <div class="vaultCore" id="vaultCore"><div class="vaultRing"></div></div>
+    <div class="vaultState" id="vaultState">listening&hellip;</div>
+    <canvas id="chart" width="900" height="70"></canvas>
+    <button id="toggleFeed" class="linkBtn">show raw feed</button>
+    <div class="table-wrap" id="feedWrap" hidden>
+      <table id="pulseTable">
+        <thead><tr><th>#</th><th>event</th><th>vault clock</th><th>your clock</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="moveCard">
+    <h2>Your move</h2>
+    <p class="hint">Return the moment, on <em>your</em> clock, you think the door opens next.</p>
+    <textarea id="code" spellcheck="false"></textarea>
+    <div class="row">
+      <button id="runBtn" class="primary">Calculate</button>
+      <span id="predictOut" class="predictOut">no plan yet</span>
+    </div>
+    <div class="row">
+      <button id="armPredictedBtn" class="strike">Breach</button>
+    </div>
+    <button id="toggleAdvanced" class="linkBtn">use a custom time instead</button>
+    <div class="row advanced" id="advancedRow" hidden>
+      <input id="manualMs" type="number" step="0.001" placeholder="your clock, ms" />
+      <button id="armManualBtn">Breach at this instant</button>
+    </div>
+  </section>
+
+  <section class="logCard">
+    <div id="log" class="log"></div>
+  </section>
+
+</main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
