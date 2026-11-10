@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """
-Reference solution for the web-console redesign -- drives the bridge's
-/ws endpoint exactly the way a player's browser tab does (no shell, no
-direct gatekeeper access). Pure standard library: a hand-rolled minimal
-WebSocket client, same framing the bridge itself implements.
+Reference solver for Stark Nightshift. Talks to the relay's /ws endpoint the way a browser tab
+does: watches the pulses, fits the period, predicts the next opening and sends a strike.
+Standard library only, with a small hand-written WebSocket client.
 
-Usage: python3 solve_web.py <host> <port>   (port is the BRIDGE's port,
-                                              e.g. 8080, not gatekeeper's)
+Usage: python3 solve.py [host] [port]      (defaults: 127.0.0.1 8080)
 """
 import base64
 import hashlib
@@ -136,8 +134,7 @@ def main():
 
         last_open = opens_local[-1]
         next_open = last_open + period_ms
-        # extrapolate using the latest pulse's yourMs as "now" proxy;
-        # good enough since we immediately strike right after computing this
+        # use the latest pulse's yourMs as "now"; we strike right after this
         now_proxy = pulses[-1]["yourMs"]
         while next_open < now_proxy:
             next_open += period_ms

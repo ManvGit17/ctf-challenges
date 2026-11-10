@@ -11,8 +11,7 @@ Needs [Docker Desktop](https://www.docker.com/products/docker-desktop/) running.
 .\demo.ps1
 ```
 
-This builds the image, starts the service on <http://localhost:1337>, puts a random local flag
-in the container, and copies the `keyhole` binary to `handout/`.
+This builds the image, starts the service on <http://localhost:1337> and copies the `keyhole` binary to `handout/`.
 
 | Command | What it does |
 |---|---|
@@ -29,7 +28,6 @@ If PowerShell refuses to run the script, see the
 ```bash
 docker build -t ctf-keyhole .
 docker run -d --name ctf-keyhole -p 1337:1337 ctf-keyhole
-docker exec -u root ctf-keyhole sh -c 'echo "isfcr{local_test_flag}" > /flag.txt'
 ```
 
 Then open <http://localhost:1337>. Stop it with `docker rm -f ctf-keyhole`.
@@ -55,7 +53,7 @@ challenge.md        description + ROT13 hints
 demo.ps1            one-command local launcher
 Dockerfile          builds the binary and the HTTP service (single container, port 1337)
 src/                SPOILER: source of the binary and the service
-solution/           SPOILER: WRITEUP.md, solve.py, AUTHOR_NOTES.md
+solution/           SPOILER: WRITEUP.md, solve.py
 ```
 
 ## Checking your solve

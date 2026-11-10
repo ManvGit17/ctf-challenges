@@ -64,5 +64,5 @@ connection, so guessing is not practical.
 
 ```bash
 pip install scapy
-python3 solve.py ../handout/pilgrims_trace.pcap localhost 9000
+python3 solve.py ../pilgrims_trace.pcap localhost 9000
 ```

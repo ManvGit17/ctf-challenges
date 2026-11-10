@@ -56,22 +56,13 @@ python3 solution/solve.py 127.0.0.1 8080
 
 ## Why the obvious attacks fail
 
-- **Flooding every badge, all the time.** Always `DENY`, and it trips the lockdown: the daemon
-  samples rejects in 500 ms slices, and 3 or more slices above 40 rejects in one interval
-  switches badge admission off for 45-90 s (rotation markers keep firing, so a naive watcher
-  still sees real-looking windows). `solution/naive_flood.py` sends about 35k guesses in 30 s
-  with zero hits.
-- **Reading the source.** The player gets a web page and nothing else. The wire protocol and the
-  badge names never reach the browser; the relay translates them into themed events.
-- **Reacting to the latest event.** Too slow, see step 3.
-- **Repeated blind strikes.** One well-aimed strike is a concentrated burst of about 200 ms,
-  which lights one slice at most. Many blind misses across many cycles light enough slices to
-  trigger the lockdown.
-
-## Solution files
-
-| File | What it is |
-|---|---|
-| `solve.py` | Solver that drives the relay's `/ws` exactly like a browser tab. The real player path. |
-| `solve_direct.py` | Dev tool: talks to the daemon directly on port 9000 (inside the container only). |
-| `naive_flood.py` | The "what doesn't work" control. |
+- **Flooding every badge all the time.** Always `DENY`, and it trips the lockdown. The daemon
+  counts rejects in 500 ms slices, and 3 or more slices over 40 rejects in one interval turns
+  badge admission off for 45 to 90 seconds. Rotation markers keep firing during a lockdown, so
+  the feed still looks normal. About 35k guesses in 30 seconds gets zero hits.
+- **Reading the source.** The player only gets a web page. The wire protocol and the badge names
+  never reach the browser.
+- **Reacting to the latest event.** The window is gone before a human or a polling script can
+  answer one pulse. You have to predict from earlier cycles.
+- **Repeated blind strikes.** A good strike is one concentrated burst of about 200 ms, which
+  trips one slice at most. Many blind misses over many cycles trip enough slices to lock you out.

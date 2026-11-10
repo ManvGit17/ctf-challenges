@@ -11,8 +11,8 @@ Needs [Docker Desktop](https://www.docker.com/products/docker-desktop/) running.
 .\demo.ps1
 ```
 
-This builds the image, starts the service on <http://localhost:8080> and puts a random local flag
-in the container. Open the URL in a browser; there is no handout file for this one.
+This builds the image and starts the service on <http://localhost:8080>. Open the URL in a
+browser; there is no handout file for this one.
 
 | Command | What it does |
 |---|---|
@@ -29,7 +29,6 @@ If PowerShell refuses to run the script, see the
 ```bash
 docker build -t ctf-stark-nightshift .
 docker run -d --name ctf-stark-nightshift -p 8080:8080 ctf-stark-nightshift
-docker exec -u root ctf-stark-nightshift sh -c 'echo "pesuctf{local_test_flag}" > /flag.txt'
 ```
 
 Then open <http://localhost:8080>. Stop it with `docker rm -f ctf-stark-nightshift`.
@@ -49,5 +48,5 @@ challenge.md        description + ROT13 hints
 demo.ps1            one-command local launcher
 Dockerfile          builds the service (single container, port 8080)
 src/                SPOILER: source of the vault daemon, the web relay and the console
-solution/           SPOILER: WRITEUP.md, solve.py, AUTHOR_NOTES.md
+solution/           SPOILER: WRITEUP.md and solve.py
 ```

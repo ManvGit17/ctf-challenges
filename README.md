@@ -18,6 +18,7 @@ watch the repo to see them land.
 |---|---|---|
 | [Keyhole](keyhole/) | Reverse Engineering | HTTP service + Linux binary |
 | [Pilgrim's Trace](pilgrim-trace/) | Forensics (network) | PCAP file + TCP relay |
+| [Cipher-Clock Relay](cipher-clock-relay/) | Network / Forensics | PCAP file + TCP relay |
 | [Stark Nightshift](stark-nightshift/) | Web / Networking | Web console (browser only) |
 
 ## Quick start
@@ -48,7 +49,7 @@ same layout:
   README.md        How to run it locally: the one-command demo and the manual docker steps
   demo.ps1         One-command launcher for Windows PowerShell
   Dockerfile ...   Whatever the challenge needs to run (service source, generators, etc.)
-  handout/         Created by demo.ps1: the files you're meant to analyse (not in git)
+  handout/         Created by some demo.ps1 scripts: files pulled out of the container (not in git)
   solution/        SPOILERS: WRITEUP.md (step-by-step solve path) + solve script
 ```
 

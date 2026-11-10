@@ -8,8 +8,8 @@ for the flag.
 
 Usage:
     pip install scapy
-    python3 solve.py ../handout/pilgrims_trace.pcap            # stage 1 only
-    python3 solve.py ../handout/pilgrims_trace.pcap localhost 9000
+    python3 solve.py ../pilgrims_trace.pcap            # stage 1 only
+    python3 solve.py ../pilgrims_trace.pcap localhost 9000
 """
 import hashlib
 import itertools

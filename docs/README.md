@@ -22,9 +22,9 @@ Every `demo.ps1` follows the same pattern:
 1. Checks that Docker is installed and running.
 2. Builds the challenge image the first time (later runs reuse it).
 3. Starts the container and maps its port to `localhost`.
-4. Writes a **random local flag** into the container, the same way a CTF platform injects one.
-5. Copies any files you're meant to analyse into the challenge's `handout/` folder.
-6. Prints where to connect.
+4. Copies any file you're meant to analyse into the challenge's `handout/` folder (some challenges
+   ship their capture in the challenge folder instead).
+5. Prints where to connect.
 
 Common switches, supported by every script:
 
@@ -35,13 +35,11 @@ Common switches, supported by every script:
 | `-Stop` | Stop and remove the container |
 | `-Rebuild` | Rebuild the image from scratch |
 
-Some challenges add more (for example `-Fresh` to regenerate files); their README lists them.
-
 ## About the flag
 
-Because you're hosting the challenge yourself, the flag is random each time and is only known
-to your container. You *could* `docker exec` in and read `/flag.txt`, but that's like flipping
-to the last page of a puzzle book. The flag is only a receipt. The point is the solve path.
+Every challenge has one fixed flag, baked into its image. You *could* `docker exec` in and read
+`/flag.txt`, or read the Dockerfile, but that's like flipping to the last page of a puzzle book.
+The flag is only a receipt. The point is the solve path.
 
 You'll know you've solved it when the challenge itself hands you an `isfcr{...}` string through
 its intended path. Several challenges contain fake flags on purpose, so a flag-shaped string you
@@ -109,8 +107,9 @@ docker image rm ctf-keyhole            # remove one
 
 1. Copy `_template/` to a new folder named after the challenge (lowercase, hyphens, no
    "challenge" in the name): `keyhole`, `pilgrim-trace`.
-2. Fill in `challenge.md`. Encode each hint with ROT13
-   (`echo "hint" | tr 'A-Za-z' 'N-ZA-Mn-za-m'`).
+2. Fill in `challenge.md`. Keep the description short and mysterious, write hints as nudges rather
+   than steps, and encode each hint with ROT13 (`echo "hint" | tr 'A-Za-z' 'N-ZA-Mn-za-m'`).
+   The flag is a single fixed string, written in leetspeak, baked into the Dockerfile.
 3. Put the Dockerfile and sources in the folder, and set the names, ports and handout path at the
    top of `demo.ps1`.
 4. Write `solution/WRITEUP.md` and a solve script, and check the solve script works against a

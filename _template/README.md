@@ -23,7 +23,6 @@ Needs [Docker Desktop](https://www.docker.com/products/docker-desktop/) running.
 ```bash
 docker build -t ctf-NAME .
 docker run -d --name ctf-NAME -p 1337:1337 ctf-NAME
-docker exec -u root ctf-NAME sh -c 'echo "isfcr{local_test_flag}" > /flag.txt'
 ```
 
 ## Files

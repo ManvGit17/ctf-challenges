@@ -1,30 +1,16 @@
 #!/usr/bin/env python3
 """
-Infiltration Relay -- serves the web console and relays each browser
-session to the vault daemon (gatekeeper.py) over loopback TCP.
+Web relay. Serves the console from static/ and bridges each browser tab to the vault daemon
+(gatekeeper.py) over loopback. Standard library only.
 
-There is no shell, no filesystem access, and no server source reachable
-from the browser -- only this page's observable behavior (the pulse
-feed) and the two actions it exposes (plan, strike). Pure standard
-library on purpose: no pip install, smallest possible image.
-
-Wire format over the WebSocket at /ws (JSON text frames). Deliberately
-plain field names -- the theme lives in the UI copy, not in making the
-protocol itself any harder to read than it needs to be:
-  server -> client  {"type":"pulse","kind":"OPENS"/"SEALS",
-                      "vaultMs":float|null,"yourMs":float}
-                     -- vaultMs is relative to this connection's first
-                        observed vault timestamp (for measuring the
-                        window's width from the SAME clock on both ends
-                        of one cycle); yourMs is relative to when this
-                        session opened (for measuring the period between
-                        cycles from arrival times, immune to any
-                        client/server clock offset).
+WebSocket at /ws, JSON text frames:
+  server -> client  {"type":"pulse","kind":"OPENS"|"SEALS","vaultMs":float|null,"yourMs":float}
+      vaultMs is relative to the first vault timestamp this session saw, yourMs is relative to
+      when the session opened.
   server -> client  {"type":"log","msg":str}
   server -> client  {"type":"outcome","ok":bool,"flag":str|null,"attempts":int}
   client -> server  {"type":"strike","atMs":float}
-                     -- atMs is in the SAME yourMs domain handed out in
-                        pulse messages.
+      atMs is in the same yourMs domain as the pulses.
 """
 import asyncio
 import base64
@@ -186,9 +172,7 @@ async def monitor_relay(writer, send_lock, base_local_ns, state):
 
 
 def fire_burst_blocking(fire_at_ns: int):
-    """Runs in a worker thread: proven busy-wait pacing, ported from the
-    reference solver. Precision matters here (sub-ms), which rules out
-    asyncio's own sleep/scheduling granularity."""
+    """Worker thread. Busy-waits for sub-millisecond pacing, which asyncio's sleep can't do."""
     sock = socket.create_connection((GATEKEEPER_HOST, GATEKEEPER_PORT))
     sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     replies: "queue.Queue[str]" = queue.Queue()

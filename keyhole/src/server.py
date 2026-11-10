@@ -11,9 +11,8 @@ Endpoints:
   POST /api/submit       -> {"code": "<12 chars>"} -> advance / fail / flag
 
 Session state lives in memory only, keyed by a random cookie. Each round's
-secret code and target bytes are generated fresh server-side; the flag is
-read from /flag.txt only at the moment a session finishes both rounds,
-never cached and never baked into the image.
+secret code and target bytes are made fresh server-side; the flag is
+read from /flag.txt when a session finishes both rounds.
 """
 import base64
 import http.cookies

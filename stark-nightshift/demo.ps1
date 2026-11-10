@@ -47,12 +47,6 @@ Info "Starting container on port $Port..."
 docker run -d --name $Name -p "${Port}:8080" $Image *> $null
 if ($LASTEXITCODE -ne 0) { Fail "Could not start the container. Is port $Port already in use? Try -Port 9090." }
 
-# Inject a random local flag, the same way a CTF platform would.
-$rand = -join ((1..8) | ForEach-Object { '{0:x}' -f (Get-Random -Maximum 16) })
-$flag = "pesuctf{l0c4l_n1ghtsh1ft_$rand}"
-docker exec -u root $Name sh -c "printf '%s' '$flag' > /flag.txt && chmod 600 /flag.txt" *> $null
-if ($LASTEXITCODE -ne 0) { Fail "Could not write the flag into the container." }
-
 Write-Host ""
 Ok  "Stark Nightshift is running."
 Write-Host "    Console : http://localhost:$Port   (open it in a browser)"

@@ -15,10 +15,8 @@ RUN useradd -m -u 10001 player
 COPY --from=build /build/keyhole /app/keyhole
 COPY src/server.py /app/server.py
 
-# Flag is injected by the platform at deploy time. Never bake a value in here.
-# World-readable so the unprivileged runtime user can still read it regardless
-# of how the platform's injection step (likely running as root) rewrites it.
-RUN touch /flag.txt && chmod 644 /flag.txt
+# Static flag, same for every player.
+RUN printf '%s' 'isfcr{y0u_r34d_th3_h4nd_wr1t1ng}' > /flag.txt && chmod 644 /flag.txt
 
 RUN chown -R player:player /app
 USER player

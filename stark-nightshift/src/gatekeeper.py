@@ -1,43 +1,29 @@
 #!/usr/bin/env python3
 """
-Nightshift Gatekeeper -- Stark Industries legacy access daemon.
+Vault daemon. Listens on 127.0.0.1:9000, only the web relay talks to it.
 
-Single-process, single-port, no raw sockets, no elevated privileges.
-The vulnerability class: a non-atomic credential rotation (add-new,
-sleep jitter, remove-old) that leaves a stale admission badge valid
-for a brief, randomized, recurring window -- expressed as an in-memory
-token set rather than a kernel ACL, since this box has no raw sockets
-and no elevated capabilities to build one with.
+Every few seconds it swaps the "stale" badge: add it to the valid set, sleep a short random
+jitter, remove it. The swap is not atomic, so for that jitter the old badge is still accepted.
 
-Never reachable directly by a player -- only the Nightshift Bridge
-(bridge.py), on loopback, relays to this process on their behalf.
-
-Wire protocol (plain TCP, newline-delimited):
-  First line "MONITOR"  -> connection becomes a one-way marker stream:
-                            "REBUILD-START seq_ts=<ns>" / "REBUILD-END seq_ts=<ns>"
-                            until the client disconnects.
-  Any other first line  -> treated as a badge guess. The connection stays
-                            open for further guesses (up to a cap).
-  Response per guess     -> "DENY" or "OK <flag>" (then the server closes).
+Wire protocol (newline-delimited TCP):
+  first line "MONITOR"  one-way stream of "REBUILD-START seq_ts=<ns>" and
+                        "REBUILD-END seq_ts=<ns>" markers
+  any other first line  a badge guess; the connection stays open for more guesses
+  reply per guess       "DENY", or "OK <flag>" and the connection closes
 """
 import random
 import socket
 import threading
 import time
 
-HOST = "127.0.0.1"  # never exposed -- reachable only from the bridge
+HOST = "127.0.0.1"  # loopback only
 PORT = 9000
 FLAG_PATH = "/flag.txt"
 
-# Small, documented, enumerable pool -- knowing the pool was never the
-# challenge; landing a guess inside the window is.
 TOKEN_POOL = [f"legacy-badge-{i:02d}" for i in range(8)]
 
-MAX_GUESSES_PER_CONN = 2_000_000  # sanity cap only; a paced burst can
-# legitimately send thousands of guesses in ~150ms, so this must not be
-# low enough to sever the connection mid-burst, before the real window
-# even opens
-MONITOR_IDLE_TIMEOUT = 3600  # just a sanity cap, not a gameplay parameter
+MAX_GUESSES_PER_CONN = 2_000_000  # high on purpose: a burst sends thousands of guesses
+MONITOR_IDLE_TIMEOUT = 3600
 
 LOCKDOWN_MIN_SEC = 45
 LOCKDOWN_MAX_SEC = 90
@@ -103,9 +89,7 @@ def rotation_loop():
         end_ts = time.time_ns()
         broadcast(f"REBUILD-END seq_ts={end_ts}")
 
-        # Duty-cycle flood detection across the rest of the interval: a
-        # concentrated, well-timed burst lights up ~1 slice; continuous
-        # spraying lights up most of them.
+        # Flood detection: a single burst trips one slice, constant spraying trips most.
         remaining = interval - jitter
         lit = 0
         while remaining > 0:
@@ -150,8 +134,7 @@ def handle_client(conn, addr):
                 monitor_clients.append(conn)
             conn.settimeout(MONITOR_IDLE_TIMEOUT)
             try:
-                # Block here purely to detect disconnect; broadcast() does
-                # the actual writing from the rotation thread.
+                # Only here to notice a disconnect; broadcast() does the writing.
                 while conn.recv(256):
                     pass
             except OSError:
