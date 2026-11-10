@@ -2,7 +2,7 @@
 
 | Category | Flag format |
 |---|---|
-| Web / Networking | `pesuctf{...}` |
+| Web / Networking | `flag{...}` |
 
 ## Description
 

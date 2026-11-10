@@ -6,16 +6,16 @@ import string
 from scapy.all import IP, TCP, UDP, ICMP, DNS, DNSQR, DNSRR, Raw, wrpcap
 
 DECOYS = [
-    {"protocol": "http", "payload": b"HTTP/1.1 200 OK\r\n\r\nisfcr{d0wnl04d_m0r3_r4m_plz_2026}", "src": "192.168.1.51", "dst": "192.168.1.100", "sport": 80, "dport_range": (40000, 60000)},
-    {"protocol": "dns", "qname": "isfcr{d0m41n_n4m3_c4ch3_p01s0n_f4k3}.corp.local", "src": "192.168.1.52", "dst": "192.168.1.1"},
-    {"protocol": "ftp", "payload": b"220 (vsFTPd 3.0.3)\nUSER anonymous\n331 Please specify the password.\nPASS guest\n230 Login successful.\nTYPE I\n200 Switching to Binary mode.\nRETR secret.txt\n150 Opening BINARY mode data connection for secret.txt (70 bytes).\nisfcr{cl34rt3xt_ftp_1s_4_tr4p_l0l}\n226 Transfer complete.\n", "src": "192.168.1.53", "dst": "192.168.1.101", "sport": 21, "dport_range": (40000, 60000)},
-    {"protocol": "smtp", "payload": b"220 smtp.example.com ESMTP Postfix\nHELO student\n250 Hello\nMAIL FROM:<tester@example.com>\n250 Ok\nRCPT TO:<victim@example.com>\n250 Ok\nDATA\n354 End data with <CR><LF>.<CR><LF>\nHello, your secret is isfcr{sm7p_f4k3_fl4g_2026}\n.\n250 Ok: queued as 12345\nQUIT\n221 Bye\n", "src": "192.168.1.54", "dst": "192.168.1.102", "sport": 25, "dport_range": (40000, 60000)},
-    {"protocol": "smb", "payload": b"isfcr{sm_b_f4k3_2026}", "src": "192.168.1.55", "dst": "192.168.1.103"},
-    {"protocol": "ntp", "payload": b"\x1c" + b"isfcr{ntp_f4k3_2026}" + b"\x00" * 48, "src": "192.168.1.56", "dst": "192.168.1.104", "sport": 123, "dport_range": (40000, 60000)},
-    {"protocol": "dns_txt", "qname": "example.com", "txt": "isfcr{dns_txt_f4k3_2026}", "src": "192.168.1.57", "dst": "192.168.1.1"},
-    {"protocol": "http_get", "payload": b"GET /isfcr{g37_f4k3_url_2026} HTTP/1.1\r\nHost: example.com\r\n\r\n", "src": "192.168.1.58", "dst": "192.168.1.105", "sport": 80, "dport_range": (40000, 60000)},
-    {"protocol": "tls", "payload": b"\x16\x03\x01" + b"isfcr{tls_f4k3_2026}" + b"\x00" * 30, "src": "192.168.1.59", "dst": "192.168.1.106", "sport": 443, "dport_range": (40000, 60000)},
-    {"protocol": "icmp_unreach", "payload": b"isfcr{icmp_unreach_f4k3_2026}", "src": "192.168.1.60", "dst": "192.168.1.1"},
+    {"protocol": "http", "payload": b"HTTP/1.1 200 OK\r\n\r\nflag{d0wnl04d_m0r3_r4m_plz_2026}", "src": "192.168.1.51", "dst": "192.168.1.100", "sport": 80, "dport_range": (40000, 60000)},
+    {"protocol": "dns", "qname": "flag{d0m41n_n4m3_c4ch3_p01s0n_f4k3}.corp.local", "src": "192.168.1.52", "dst": "192.168.1.1"},
+    {"protocol": "ftp", "payload": b"220 (vsFTPd 3.0.3)\nUSER anonymous\n331 Please specify the password.\nPASS guest\n230 Login successful.\nTYPE I\n200 Switching to Binary mode.\nRETR secret.txt\n150 Opening BINARY mode data connection for secret.txt (70 bytes).\nflag{cl34rt3xt_ftp_1s_4_tr4p_l0l}\n226 Transfer complete.\n", "src": "192.168.1.53", "dst": "192.168.1.101", "sport": 21, "dport_range": (40000, 60000)},
+    {"protocol": "smtp", "payload": b"220 smtp.example.com ESMTP Postfix\nHELO student\n250 Hello\nMAIL FROM:<tester@example.com>\n250 Ok\nRCPT TO:<victim@example.com>\n250 Ok\nDATA\n354 End data with <CR><LF>.<CR><LF>\nHello, your secret is flag{sm7p_f4k3_fl4g_2026}\n.\n250 Ok: queued as 12345\nQUIT\n221 Bye\n", "src": "192.168.1.54", "dst": "192.168.1.102", "sport": 25, "dport_range": (40000, 60000)},
+    {"protocol": "smb", "payload": b"flag{sm_b_f4k3_2026}", "src": "192.168.1.55", "dst": "192.168.1.103"},
+    {"protocol": "ntp", "payload": b"\x1c" + b"flag{ntp_f4k3_2026}" + b"\x00" * 48, "src": "192.168.1.56", "dst": "192.168.1.104", "sport": 123, "dport_range": (40000, 60000)},
+    {"protocol": "dns_txt", "qname": "example.com", "txt": "flag{dns_txt_f4k3_2026}", "src": "192.168.1.57", "dst": "192.168.1.1"},
+    {"protocol": "http_get", "payload": b"GET /flag{g37_f4k3_url_2026} HTTP/1.1\r\nHost: example.com\r\n\r\n", "src": "192.168.1.58", "dst": "192.168.1.105", "sport": 80, "dport_range": (40000, 60000)},
+    {"protocol": "tls", "payload": b"\x16\x03\x01" + b"flag{tls_f4k3_2026}" + b"\x00" * 30, "src": "192.168.1.59", "dst": "192.168.1.106", "sport": 443, "dport_range": (40000, 60000)},
+    {"protocol": "icmp_unreach", "payload": b"flag{icmp_unreach_f4k3_2026}", "src": "192.168.1.60", "dst": "192.168.1.1"},
 ]
 
 PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]

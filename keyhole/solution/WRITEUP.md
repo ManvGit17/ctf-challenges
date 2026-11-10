@@ -69,7 +69,7 @@ Near a small XOR-decode loop there is a 28-byte blob and an `fprintf(stderr, "[l
 call. Decoding it with the single-byte key (loaded as an immediate next to the loop) gives:
 
 ```
-CNS{N1CE_TRY_KEEP_REVERSING}
+flag{N1CE_TRY_KEEP_REVERSING}
 ```
 
 That function (`legacy_transform`) is slot 3 of the table. It is only reachable with `--legacy`,

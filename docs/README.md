@@ -41,7 +41,7 @@ Every challenge has one fixed flag, baked into its image. You *could* `docker ex
 `/flag.txt`, or read the Dockerfile, but that's like flipping to the last page of a puzzle book.
 The flag is only a receipt. The point is the solve path.
 
-You'll know you've solved it when the challenge itself hands you an `isfcr{...}` string through
+You'll know you've solved it when the challenge itself hands you an `flag{...}` string through
 its intended path. Several challenges contain fake flags on purpose, so a flag-shaped string you
 found lying around is probably a trap.
 

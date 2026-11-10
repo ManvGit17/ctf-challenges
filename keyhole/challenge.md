@@ -2,7 +2,7 @@
 
 | Category | Flag format |
 |---|---|
-| Reverse Engineering | `isfcr{...}` |
+| Reverse Engineering | `flag{...}` |
 
 ## Description
 

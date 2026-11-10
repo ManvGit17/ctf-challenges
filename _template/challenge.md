@@ -2,7 +2,7 @@
 
 | Category | Flag format |
 |---|---|
-| Web / Pwn / Rev / Crypto / Forensics / Misc | `isfcr{...}` |
+| Web / Pwn / Rev / Crypto / Forensics / Misc | `flag{...}` |
 
 ## Description
 

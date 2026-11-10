@@ -9,7 +9,7 @@ RUN useradd -m ctfuser
 COPY src/relay_server.py /app/relay_server.py
 
 # Static flag, same for every player.
-RUN printf '%s' 'isfcr{7h3_cl0ck_n3v3r_l13s_tw1c3}' > /flag.txt && chmod 644 /flag.txt
+RUN printf '%s' 'flag{7h3_cl0ck_n3v3r_l13s_tw1c3}' > /flag.txt && chmod 644 /flag.txt
 
 USER ctfuser
 EXPOSE 8338/tcp

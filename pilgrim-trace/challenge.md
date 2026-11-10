@@ -2,7 +2,7 @@
 
 | Category | Flag format |
 |---|---|
-| Forensics (network) | `isfcr{...}` |
+| Forensics (network) | `flag{...}` |
 
 ## Description
 

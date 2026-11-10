@@ -16,7 +16,7 @@ COPY --from=build /build/keyhole /app/keyhole
 COPY src/server.py /app/server.py
 
 # Static flag, same for every player.
-RUN printf '%s' 'isfcr{y0u_r34d_th3_h4nd_wr1t1ng}' > /flag.txt && chmod 644 /flag.txt
+RUN printf '%s' 'flag{y0u_r34d_th3_h4nd_wr1t1ng}' > /flag.txt && chmod 644 /flag.txt
 
 RUN chown -R player:player /app
 USER player
