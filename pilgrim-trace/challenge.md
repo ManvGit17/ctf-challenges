@@ -1,8 +1,8 @@
 # Pilgrim's Trace
 
-| Category | Difficulty | Points | Flag format |
-|---|---|---|---|
-| Forensics (network) | Hard | 300 | `isfcr{...}` |
+| Category | Flag format |
+|---|---|
+| Forensics (network) | `isfcr{...}` |
 
 ## Description
 

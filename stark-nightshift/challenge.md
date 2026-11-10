@@ -1,8 +1,8 @@
 # Stark Nightshift
 
-| Category | Difficulty | Points | Flag format |
-|---|---|---|---|
-| Web / Networking | Insane | n/a | `pesuctf{...}` |
+| Category | Flag format |
+|---|---|
+| Web / Networking | `pesuctf{...}` |
 
 ## Description
 

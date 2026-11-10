@@ -1,8 +1,8 @@
 # Challenge Name
 
-| Category | Difficulty | Points | Flag format |
-|---|---|---|---|
-| Web / Pwn / Rev / Crypto / Forensics / Misc | Easy / Medium / Hard | 100 | `isfcr{...}` |
+| Category | Flag format |
+|---|---|
+| Web / Pwn / Rev / Crypto / Forensics / Misc | `isfcr{...}` |
 
 ## Description
 

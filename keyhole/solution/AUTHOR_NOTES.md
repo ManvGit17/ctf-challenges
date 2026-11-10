@@ -6,14 +6,6 @@
 ## Domain / category
 Reverse Engineering
 
-## Difficulty
-**Easy-plus** (above a textbook easy crackme, below a medium multi-stage binary). Target solve
-time for a player comfortable with a disassembler/Ghidra and basic scripting: roughly 45–90
-minutes.
-
-## Points
-**200**
-
 ---
 
 ## Objective description (mysterious, for the platform listing)

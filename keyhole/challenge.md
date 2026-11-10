@@ -1,8 +1,8 @@
 # Keyhole
 
-| Category | Difficulty | Points | Flag format |
-|---|---|---|---|
-| Reverse Engineering | Easy+ | 200 | `isfcr{...}` |
+| Category | Flag format |
+|---|---|
+| Reverse Engineering | `isfcr{...}` |
 
 ## Description
 

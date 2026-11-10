@@ -5,7 +5,6 @@
 | | |
 |---|---|
 | Category | Web / Networking |
-| Difficulty | Insane |
 | Delivery | one web page, one exposed port (8080), no shell for the player |
 | Image | `python:3.11-alpine`, standard library only, about 61 MB |
 

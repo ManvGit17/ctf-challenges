@@ -14,11 +14,11 @@ watch the repo to see them land.
 
 ## Challenges
 
-| Challenge | Category | Difficulty | Points | Runs as |
-|---|---|---|---|---|
-| [Keyhole](keyhole/) | Reverse Engineering | Easy+ | 200 | HTTP service + Linux binary |
-| [Pilgrim's Trace](pilgrim-trace/) | Forensics (network) | Hard | 300 | PCAP file + TCP relay |
-| [Stark Nightshift](stark-nightshift/) | Web / Networking | Insane | n/a | Web console (browser only) |
+| Challenge | Category | Runs as |
+|---|---|---|
+| [Keyhole](keyhole/) | Reverse Engineering | HTTP service + Linux binary |
+| [Pilgrim's Trace](pilgrim-trace/) | Forensics (network) | PCAP file + TCP relay |
+| [Stark Nightshift](stark-nightshift/) | Web / Networking | Web console (browser only) |
 
 ## Quick start
 
@@ -44,7 +44,7 @@ same layout:
 
 ```
 <challenge-name>/
-  challenge.md     The brief: description, category, difficulty, points, flag format, ROT13 hints
+  challenge.md     The brief: description, category, flag format, ROT13 hints
   README.md        How to run it locally: the one-command demo and the manual docker steps
   demo.ps1         One-command launcher for Windows PowerShell
   Dockerfile ...   Whatever the challenge needs to run (service source, generators, etc.)
