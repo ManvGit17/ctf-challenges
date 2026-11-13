@@ -20,6 +20,8 @@ watch the repo to see them land.
 | [Pilgrim's Trace](pilgrim-trace/) | Forensics (network) | PCAP file + TCP relay |
 | [Cipher-Clock Relay](cipher-clock-relay/) | Network / Forensics | PCAP file + TCP relay |
 | [Stark Nightshift](stark-nightshift/) | Web / Networking | Web console (browser only) |
+| [Dead Reckoning](dead-reckoning/) | Forensics / Crypto / OSINT | PNG file (nothing to run) |
+| [The Impostor Resolver](impostor-resolver/) | Web / Networking | Web console + your own script |
 
 ## Quick start
 

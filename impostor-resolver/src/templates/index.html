@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Impostor Resolver</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body data-target="{{ target }}" data-legit="{{ legit_ip }}">
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="side">
+      <div class="side-brand">
+        <div class="crew crew-red tiny"><i class="visor"></i><i class="pack"></i></div>
+        <div class="side-brand-text">
+          <strong>Impostor</strong>
+          <span>Resolver</span>
+        </div>
+      </div>
+
+      <nav class="tabs" id="tabs">
+        <button class="tab active" data-tab="brief" type="button">Briefing</button>
+        <button class="tab" data-tab="round" type="button"><i>1</i>Call Round</button>
+        <button class="tab" data-tab="admin" type="button"><i>2</i>Admin Table</button>
+        <button class="tab" data-tab="vent" type="button"><i>3</i>Vent In</button>
+        <button class="tab" data-tab="resolve" type="button"><i>4</i>Resolve</button>
+        <button class="tab" data-tab="log" type="button">Comms Log</button>
+      </nav>
+
+      <div class="side-status">
+        <div class="status" id="shipStatus">
+          <span class="dot ok"></span>
+          <div>
+            <div class="status-label">Ship status</div>
+            <div class="status-value" id="shipStatusText">NOT SUS</div>
+          </div>
+        </div>
+        <div class="clock-row">
+          <span>Elapsed</span>
+          <b id="clock">00:00</b>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <section class="view" data-view="brief">
+        <h2>Emergency Briefing</h2>
+        <p>
+          The crew's <b>resolver</b> trusts whoever answers its upstream question <i>first</i>.
+          Everyone on the ship believes <code id="tgt">{{ target }}</code> lives at
+          <code>{{ legit_ip }}</code>. You have vented into Comms.
+        </p>
+        <p class="dim">
+          Somewhere out there, an honest crewmate is already walking to Admin with the real answer.
+          Be quicker. Be convincing. Be whoever the ship expects.
+        </p>
+        <p class="dim">
+          Make the whole ship trust you &mdash; not just one room. Then ask for
+          <code>{{ target }}</code> and see who answers.
+        </p>
+      </section>
+
+      <section class="view" data-view="round" hidden>
+        <h2>Call a Round</h2>
+        <p class="dim">Make the crew ask upstream about a name. Fresh names, fresh rounds.</p>
+        <div class="row">
+          <input id="subInput" type="text" spellcheck="false" placeholder="random">
+          <span class="suffix">.{{ target }}</span>
+        </div>
+        <div class="row">
+          <button id="btnRound" class="btn primary">Call Round</button>
+          <button id="btnRand" class="btn ghost" title="Roll a random name">&#127922;</button>
+        </div>
+        <div class="note" id="roundNote"></div>
+      </section>
+
+      <section class="view" data-view="admin" hidden>
+        <h2>Admin Table <span class="live"><i></i>LIVE</span></h2>
+        <p class="dim">Who is out there, and what colour are they wearing?</p>
+        <div class="table-wrap">
+          <table id="adminTable">
+            <thead>
+              <tr><th>#</th><th>Question</th><th>Colour (txid)</th><th>Port</th><th>Arrives</th></tr>
+            </thead>
+            <tbody id="adminBody">
+              <tr class="empty"><td colspan="5">Nobody in Admin. Call a round.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="dim tiny">Tip: click a row to copy its colours into the vent form.</p>
+      </section>
+
+      <section class="view" data-view="vent" hidden>
+        <h2>Vent In <span class="sus">sus</span></h2>
+        <p class="dim">Forge a reply and slide it in before the real crewmate. One shot per round.</p>
+
+        <div class="form-grid">
+          <label>txid
+            <input id="fTxid" type="text" placeholder="0x1a2b or 6699" spellcheck="false">
+          </label>
+          <label>source port
+            <input id="fSport" type="text" placeholder="e.g. 41234" spellcheck="false">
+          </label>
+          <label class="span2">question (qname)
+            <input id="fQname" type="text" placeholder="abc123.{{ target }}" spellcheck="false">
+          </label>
+          <div class="flags span2">
+            <span class="lbl">flags</span>
+            <label class="chk"><input id="fQr" type="checkbox" checked> qr (response)</label>
+            <label class="chk"><input id="fAa" type="checkbox" checked> aa (authoritative)</label>
+          </div>
+          <label class="span2">records <small>(JSON: answer / authority / additional)</small>
+            <textarea id="fRecords" rows="9" spellcheck="false"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <button id="btnVent" class="btn danger">Vent In</button>
+          <button id="btnTpl" class="btn ghost">Reset template</button>
+          <button id="btnReset" class="btn ghost">Reset ship</button>
+        </div>
+        <div class="note" id="ventNote"></div>
+      </section>
+
+      <section class="view" data-view="resolve" hidden>
+        <h2>Who is Real?</h2>
+        <p class="dim">Ask the crew where <code>{{ target }}</code> lives now.</p>
+        <div class="cache" id="cacheBox">
+          <div class="cache-row"><span>Delegation (NS)</span><b id="cNs">none</b></div>
+          <div class="cache-row"><span>Glue (A)</span><b id="cGlue">none</b></div>
+          <div class="cache-row"><span>{{ target }} &rarr;</span><b id="cIp">{{ legit_ip }}</b></div>
+        </div>
+        <div class="row">
+          <button id="btnResolve" class="btn primary">Resolve {{ target }}</button>
+        </div>
+        <div class="note" id="resolveNote"></div>
+      </section>
+
+      <section class="view" data-view="log" hidden>
+        <h2>Comms Log</h2>
+        <div id="log" class="logbox"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- VICTORY -->
+  <div id="victory" class="victory hidden" role="dialog" aria-modal="true">
+    <div class="victory-card">
+      <div class="crews">
+        <div class="crew crew-red"><i class="visor"></i><i class="pack"></i></div>
+        <div class="crew crew-cyan"><i class="visor"></i><i class="pack"></i></div>
+        <div class="crew crew-lime"><i class="visor"></i><i class="pack"></i></div>
+      </div>
+      <h2>IMPOSTOR WINS</h2>
+      <p>The crew voted the Impostor in as a Crewmate.<br>
+         <b id="vTarget"></b> now resolves to <b id="vIp"></b>.</p>
+      <code id="vFlag" class="flag"></code>
+      <button id="vClose" class="btn primary">Keep playing</button>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
