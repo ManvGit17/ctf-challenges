@@ -1,0 +1,24 @@
+// Code generated per build by build/gen_layout.py. Field order and padding
+// are randomized at build time so no two builds share memory offsets.
+package main
+
+import "sync/atomic"
+
+type sessionSlot struct {
+__FIELDS__
+}
+
+var slots [2]sessionSlot
+var activeIdx int32
+
+func slotForEpoch(epoch uint64) *sessionSlot {
+	return &slots[epoch%2]
+}
+
+func currentActiveIdx() int32 {
+	return atomic.LoadInt32(&activeIdx)
+}
+
+func flipActive(newIdx int32) {
+	atomic.StoreInt32(&activeIdx, newIdx)
+}

@@ -22,6 +22,7 @@ watch the repo to see them land.
 | [Stark Nightshift](stark-nightshift/) | Web / Networking | Web console (browser only) |
 | [Dead Reckoning](dead-reckoning/) | Forensics / Crypto / OSINT | PNG file (nothing to run) |
 | [The Impostor Resolver](impostor-resolver/) | Web / Networking | Web console + your own script |
+| [The Handshake Skimmer](handshake-skimmer/) | Forensics / Reverse Engineering | HTTP API + Linux binary |
 
 ## Quick start
 
