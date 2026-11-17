@@ -105,3 +105,4 @@ new challenges.
 
 Found a bug, an unintended solution, or a challenge that won't start? Open an issue. Unintended
 solves are especially welcome.
+If you want to contribute to this repo, feel free to fork the repo and send a pull request.
