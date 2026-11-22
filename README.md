@@ -23,6 +23,7 @@ watch the repo to see them land.
 | [Dead Reckoning](dead-reckoning/) | Forensics / Crypto / OSINT | PNG file (nothing to run) |
 | [The Impostor Resolver](impostor-resolver/) | Web / Networking | Web console + your own script |
 | [The Handshake Skimmer](handshake-skimmer/) | Forensics / Reverse Engineering | HTTP API + Linux binary |
+| [DNSSEC Matrix](dnssec-matrix/) | Web / Networking | Web console + your own script |
 
 ## Quick start
 

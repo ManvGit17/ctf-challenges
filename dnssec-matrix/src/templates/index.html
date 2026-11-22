@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNSSEC Deterministic Matrix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-mesh"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="icon">🌐</span>
+                <h1>NSEC3 Diagnostic Portal</h1>
+            </div>
+            <p class="subtitle">Secure Zone Walk Validation System</p>
+        </header>
+
+        <main>
+            <div class="glass-panel input-panel">
+                <form id="queryForm">
+                    <div class="form-group">
+                        <label for="domain">Domain Name</label>
+                        <input type="text" id="domain" placeholder="start.matrix.ctf" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="qtype">Record Type</label>
+                        <select id="qtype">
+                            <option value="TXT">TXT</option>
+                            <option value="A">A</option>
+                            <option value="ANY">ANY</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <span>Execute Query</span>
+                        <div class="loader hidden" id="loader"></div>
+                    </button>
+                </form>
+            </div>
+
+            <div class="glass-panel output-panel">
+                <div class="terminal-header">
+                    <div class="dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="term-title">dns_diagnostic_output.log</span>
+                </div>
+                <div class="terminal-body" id="terminalOutput">
+                    <div class="line comment"># Awaiting query input...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
